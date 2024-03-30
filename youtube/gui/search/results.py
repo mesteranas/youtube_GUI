@@ -1,4 +1,4 @@
-from pytube import Search
+from youtubesearchpython import VideosSearch,PlaylistsSearch
 import gui
 import guiTools
 import PyQt6.QtWidgets as qt
@@ -7,23 +7,29 @@ import PyQt6.QtCore as qt2
 class resultsObjects(qt2.QObject):
     finish=qt2.pyqtSignal(dict)
 class resultsThread(qt2.QRunnable):
-    def __init__(self,text):
+    def __init__(self,text,type):
         super().__init__()
         self.text=text
+        self.type=type
         self.objects=resultsObjects()
     def run(self):
         guiTools.speak(_("searching"))
         videos={}
-        for video in Search(self.text).results:
-            videos["{} by {} {} views".format(video.title, video.author, video.views)] = video.watch_url
+        if self.type==0:
+            for video in VideosSearch(self.text).result()["result"]:
+                videos["{} by {} {} ".format(video['title'],video['channel']['name'],video['viewCount']['short'])]=video['link']
+        elif self.type==1:
+            for video in PlaylistsSearch(self.text).result()["result"]:
+                videos["{} by {}".format(video['title'],video['channel']['name'])]=f"https://www.youtube.com/playlist?list={video['id']}"
         self.objects.finish.emit(videos)
 
 class Results(qt.QDialog):
-    def __init__(self,p,text):
+    def __init__(self,p,text,type):
         super().__init__(p)
         self.setWindowTitle(_("search results"))
         self.videos={}
-        thread=resultsThread(text)
+        self.type=type
+        thread=resultsThread(text,type)
         thread.objects.finish.connect(self.finishLoading)
         qt2.QThreadPool(self).start(thread)
         layout=qt.QVBoxLayout(self)
@@ -33,9 +39,14 @@ class Results(qt.QDialog):
         self.results.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.results.customContextMenuRequested.connect(self.on_context)
         layout.addWidget(self.results)
-        self.play=qt.QPushButton(_("play"))
-        self.play.clicked.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],0).exec())
-        layout.addWidget(self.play)
+        if self.type==0:
+            self.play=qt.QPushButton(_("play"))
+            self.play.clicked.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],0).exec())
+            layout.addWidget(self.play)
+        elif self.type==1:
+            self.openPlaylist=qt.QPushButton(_("open playlist"))
+            self.openPlaylist.clicked.connect(lambda:gui.play.PlayPlayList(self,self.videos[self.results.currentItem().text()]).exec())
+            layout.addWidget(self.openPlaylist)
     def finishLoading(self,r):
         self.videos=r
         self.results.addItems(self.videos.keys())
@@ -43,13 +54,18 @@ class Results(qt.QDialog):
         guiTools.speak(_("loaded"))
     def on_context(self):
         menu=qt.QMenu(self)
-        PlayMenu=menu.addMenu(_("play"))
-        video=qt1.QAction(_("video"),self)
-        PlayMenu.addAction(video)
-        video.triggered.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],0).exec())
-        audio=qt1.QAction(_("audio"),self)
-        PlayMenu.addAction(audio)
-        audio.triggered.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],1).exec())
+        if self.type==0:
+            PlayMenu=menu.addMenu(_("play"))
+            video=qt1.QAction(_("video"),self)
+            PlayMenu.addAction(video)
+            video.triggered.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],0).exec())
+            audio=qt1.QAction(_("audio"),self)
+            PlayMenu.addAction(audio)
+            audio.triggered.connect(lambda:gui.play.Play(self,self.videos[self.results.currentItem().text()],1).exec())
+        elif self.type==1:
+            openplaylist=qt1.QAction(_("open playlist"),self)
+            menu.addAction(openplaylist)
+            openplaylist.triggered.connect(lambda:gui.play.PlayPlayList(self,self.videos[self.results.currentItem().text()]).exec())
         openorcopyurl=qt1.QAction(_("open or copy url"),self)
         menu.addAction(openorcopyurl)
         openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.results.currentItem().text()]))

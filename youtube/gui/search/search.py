@@ -11,6 +11,10 @@ class Search(qt.QDialog):
         self.searchBox=qt.QLineEdit()
         self.searchBox.setAccessibleName(_("search"))
         layout.addWidget(self.searchBox)
+        self.type=qt.QComboBox()
+        self.type.setAccessibleName(_("type"))
+        self.type.addItems([_("video"),_("play list")])
+        layout.addWidget(self.type)
         self.searchButton=qt.QPushButton(_("search"))
         self.searchButton.clicked.connect(self.on_search)
         layout.addWidget(self.searchButton)
@@ -18,5 +22,5 @@ class Search(qt.QDialog):
         self.cancel.clicked.connect(lambda:self.close())
         layout.addWidget(self.cancel)
     def on_search(self):
-        Results(self,self.searchBox.text()).exec()
+        Results(self,self.searchBox.text(),self.type.currentIndex()).exec()
         self.close()
