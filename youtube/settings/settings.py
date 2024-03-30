@@ -25,6 +25,8 @@ class settings (qt.QDialog):
         self.layout1=tabs.Genral(self)
         self.sectian.add(_("general"),self.layout1)
         self.sectian.add(_("update"),self.update)
+        self.play=tabs.PlaySettings(self)
+        self.sectian.add(_("play settings"),self.play)
         restoar=tabs.Restoar(self)
         self.sectian.add(_("Backup and restoar"),restoar)
         layout.addWidget(self.ok)
@@ -39,6 +41,7 @@ class settings (qt.QDialog):
         settings_handler.set("g","exitDialog",str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
+        settings_handler.set("play","quality",str(self.play.quality.currentIndex()))
         if aa==1:
             mb=qt.QMessageBox(self)
             mb.setWindowTitle(_("settings updated"))

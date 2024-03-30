@@ -13,6 +13,8 @@ if not os.path.exists(cpath):
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"
+	config.add_section("play")
+	config["play"]["quality"]="0"
 	with open(cpath, "w",encoding="utf-8") as file:
 		config.write(file)
 

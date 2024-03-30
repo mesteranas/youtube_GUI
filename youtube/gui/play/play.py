@@ -1,4 +1,5 @@
-import guiTools
+from .comments import ViewComments
+import guiTools,settings
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -9,20 +10,27 @@ class PlayObjects(qt2.QObject):
     finish=qt2.pyqtSignal(YouTube)
     url=qt2.pyqtSignal(str)
 class PlayThread(qt2.QRunnable):
-    def __init__(self,url):
+    def __init__(self,url,type):
         super().__init__()
         self.objects=PlayObjects()
         self.url=url
+        self.type=type
     def run(self):
         guiTools.speak(_("loading"))
         self.video=YouTube(self.url)
         self.objects.finish.emit(self.video)
-        self.objects.url.emit(self.video.streams.get_lowest_resolution().url)
+        if self.type==0:
+            if settings.settings_handler.get("play","quality")=="0":
+                self.objects.url.emit(self.video.streams.get_highest_resolution().url)
+            else:
+                self.objects.url.emit(self.video.streams.get_lowest_resolution().url)
+        else:
+            self.objects.url.emit(self.video.streams.filter(only_audio=True).first().url)
 class Play(qt.QDialog):
-    def __init__(self,p,videoURL):
+    def __init__(self,p,videoURL,type):
         super().__init__(p)
         self.video=None
-        thread=PlayThread(videoURL)
+        thread=PlayThread(videoURL,type)
         thread.objects.finish.connect(self.on_finish_loading)
         thread.objects.url.connect(self.on_url)
         qt2.QThreadPool(self).start(thread)
@@ -47,18 +55,35 @@ class Play(qt.QDialog):
         rewind.setShortcut("alt+left")
         player.addAction(rewind)
         rewind.triggered.connect(lambda:self.media.setPosition(self.media.position()-10000))
+        volume=player.addMenu(_("volume"))
         volume_up=qt1.QAction(_("volume up"),self)
-        player.addAction(volume_up)
+        volume.addAction(volume_up)
         volume_up.setShortcut("alt+up")
         volume_up.triggered.connect(lambda:self.on_volume_control(self.audio.volume()+0.1))
         volume_down=qt1.QAction(_("volume down"),self)
-        player.addAction(volume_down)
+        volume.addAction(volume_down)
         volume_down.setShortcut("alt+down")
         volume_down.triggered.connect(lambda:self.on_volume_control(self.audio.volume()-0.1))
+        rate=player.addMenu(_("rate"))
+        rate_plus=qt1.QAction(_("increase"),self)
+        rate.addAction(rate_plus)
+        rate_plus.setShortcut("f")
+        rate_plus.triggered.connect(lambda:self.ofast("+"))
+        rate_dash=qt1.QAction(_("decrease"),self)
+        rate.addAction(rate_dash)
+        rate_dash.setShortcut("shift+f")
+        rate_dash.triggered.connect(lambda:self.ofast("-"))
+        rate_normal=qt1.QAction(_("normal"),self)
+        rate.addAction(rate_normal)
+        rate_normal.setShortcut("ctrl+f")
+        rate_normal.triggered.connect(lambda:self.ofast(1))
         video=menuBar.addMenu(_("video"))
         description=qt1.QAction(_("description"),self)
         video.addAction(description)
         description.triggered.connect(self.on_description)
+        comments=qt1.QAction(_("comments"),self)
+        video.addAction(comments)
+        comments.triggered.connect(lambda:self.on_comments(videoURL))
         layout.setMenuBar(menuBar)
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_play_pause(self):
@@ -83,3 +108,19 @@ class Play(qt.QDialog):
     def on_volume_control(self,volume):
         self.audio.setVolume(volume)
         guiTools.speak(str(self.audio.volume()*100).split(".")[0])
+    def on_comments(self,url):
+        self.media.pause()
+        ViewComments(self,url).exec()
+    def ofast(self,a):
+        state=self.media.playbackRate()
+        if state==0.1:
+            pass
+        elif state==2.0:
+            pass
+        else:
+            if a=="-":
+                self.media.setPlaybackRate(state - 0.1)
+            elif a=="+":
+                self.media.setPlaybackRate(state + 0.1)
+            else:
+                self.media.setPlaybackRate(1.0)
