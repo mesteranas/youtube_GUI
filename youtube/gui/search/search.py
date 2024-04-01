@@ -13,7 +13,7 @@ class Search(qt.QDialog):
         layout.addWidget(self.searchBox)
         self.type=qt.QComboBox()
         self.type.setAccessibleName(_("type"))
-        self.type.addItems([_("video"),_("play list")])
+        self.type.addItems([_("video"),_("play list"),_("channel")])
         layout.addWidget(self.type)
         self.searchButton=qt.QPushButton(_("search"))
         self.searchButton.clicked.connect(self.on_search)

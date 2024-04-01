@@ -1,4 +1,4 @@
-from youtubesearchpython import VideosSearch,PlaylistsSearch
+from youtubesearchpython import VideosSearch,PlaylistsSearch,ChannelsSearch
 import gui
 import guiTools
 import PyQt6.QtWidgets as qt
@@ -21,8 +21,10 @@ class resultsThread(qt2.QRunnable):
         elif self.type==1:
             for video in PlaylistsSearch(self.text).result()["result"]:
                 videos["{} by {}".format(video['title'],video['channel']['name'])]=f"https://www.youtube.com/playlist?list={video['id']}"
+        elif self.type==2:
+            for channel in ChannelsSearch(self.text).result()["result"]:
+                videos[channel["title"]]=channel["id"]
         self.objects.finish.emit(videos)
-
 class Results(qt.QDialog):
     def __init__(self,p,text,type):
         super().__init__(p)
@@ -47,6 +49,10 @@ class Results(qt.QDialog):
             self.openPlaylist=qt.QPushButton(_("open playlist"))
             self.openPlaylist.clicked.connect(lambda:gui.play.PlayPlayList(self,self.videos[self.results.currentItem().text()]).exec())
             layout.addWidget(self.openPlaylist)
+        elif self.type==2:
+            self.openChannel=qt.QPushButton(_("open channel"))
+            self.openChannel.clicked.connect(lambda:gui.play.OpenChannel(self,self.videos[self.results.currentItem().text()]).exec())
+            layout.addWidget(self.openChannel)
     def finishLoading(self,r):
         self.videos=r
         self.results.addItems(self.videos.keys())
@@ -66,6 +72,10 @@ class Results(qt.QDialog):
             openplaylist=qt1.QAction(_("open playlist"),self)
             menu.addAction(openplaylist)
             openplaylist.triggered.connect(lambda:gui.play.PlayPlayList(self,self.videos[self.results.currentItem().text()]).exec())
+        elif self.type==2:
+            openChannel=qt1.QAction(_("open channel"),self)
+            menu.addAction(openChannel)
+            openChannel.triggered.connect(lambda:gui.play.OpenChannel(self,self.videos[self.results.currentItem().text()]).exec())
         openorcopyurl=qt1.QAction(_("open or copy url"),self)
         menu.addAction(openorcopyurl)
         openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.results.currentItem().text()]))

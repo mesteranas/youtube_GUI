@@ -4,7 +4,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class PlaylistObjects(qt2.QObject):
-    finish=qt2.pyqtSignal(dict)
+    finish=qt2.pyqtSignal(dict,Playlist)
 class PlaylistThread(qt2.QRunnable):
     def __init__(self,playlistURL):
         super().__init__()
@@ -13,18 +13,21 @@ class PlaylistThread(qt2.QRunnable):
     def run(self):
         guiTools.speak(_("loading"))
         self.videos={}
-        for video in Playlist(self.playList).videos:
+        playlistSearch=Playlist(self.playList)
+        for video in playlistSearch.videos:
             self.videos[video.title]=video.watch_url
-        self.objects.finish.emit(self.videos)
+        self.objects.finish.emit(self.videos,playlistSearch)
 class PlayPlayList(qt.QDialog):
     def __init__(self,p,PlaylistUrl):
         super().__init__(p)
         self.videos={}
-        self.setWindowTitle(_("playlist"))
         thread=PlaylistThread(PlaylistUrl)
         thread.objects.finish.connect(self.on_finish_loading)
         qt2.QThreadPool(self).start(thread)
         layout=qt.QVBoxLayout(self)
+        self.description=qt.QLineEdit()
+        self.description.setReadOnly(True)
+        layout.addWidget(self.description)
         self.playlistBox=qt.QListWidget()
         self.playlistBox.setAccessibleName(_("videos"))
         self.playlistBox.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
@@ -33,7 +36,9 @@ class PlayPlayList(qt.QDialog):
         self.play=qt.QPushButton(_("play"))
         self.play.clicked.connect(lambda:gui.play.Play(self,self.videos[self.playlistBox.currentItem().text()],0).exec())
         layout.addWidget(self.play)
-    def on_finish_loading(self,r):
+    def on_finish_loading(self,r,pl):
+        self.setWindowTitle(pl.title)
+        self.description.setText(pl.description)
         self.videos=r
         self.playlistBox.addItems(self.videos.keys())
         self.playlistBox.setFocus()
