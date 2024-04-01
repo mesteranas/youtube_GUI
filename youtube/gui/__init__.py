@@ -1,2 +1,2 @@
-from . import search,play
+from . import search,play,favorite
 from .open import Open

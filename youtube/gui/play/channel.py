@@ -107,12 +107,17 @@ class OpenChannel(qt.QDialog):
         self.tab.addTab(self.playlist,_("playlists"))
         self.playlists={}
         layout.addWidget(self.tab)
+        self.favorite=qt.QCheckBox(_("favorite"))
+        layout.addWidget(self.favorite)
+
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_finish_loading(self,result,index):
         if index==0:
             self.channel=result
             self.setWindowTitle(self.channel["title"])
             self.channelInfo.description.setText(self.channel["description"])
+            self.favorite.setChecked(self.on_favorite(0))
+            self.favorite.toggled.connect(lambda:self.on_favorite(1))
             self.channelInfo.info.clear()
             self.channelInfo.info.addItems([_("subscribers {}".format(self.channel["subscribers"]["label"])),_("views  {}".format(self.channel["views"])),_("joined date {}".format(self.channel["joinedDate"])),_("country {}".format(self.channel["country"]))])
             guiTools.speak(_("information loaded"))
@@ -122,8 +127,23 @@ class OpenChannel(qt.QDialog):
             guiTools.speak(_("videos loaded"))
         elif index==2:
             self.playlists=result
+            self.playlist.playlistBox.clear()
             self.playlist.playlistBox.addItems(self.playlists)
             guiTools.speak(_("playlists loaded"))
     def closeEvent(self,event):
         self.thread.objects.exit.emit(True)
         self.close()
+    def on_favorite(self,index):
+        text=self.channel["title"]
+        data=gui.favorite.favoriteJsonControl.get("channels")
+        if index==0:
+            if data.get(text):
+                return True
+            else:
+                return False
+        else:
+            if data.get(text):
+                del(data[text])
+            else:
+                data[text]={"url":self.channel["id"]}
+            gui.favorite.favoriteJsonControl.save("channels",data)

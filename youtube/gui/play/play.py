@@ -1,6 +1,6 @@
 from .comments import ViewComments
 from . import channel
-import guiTools,settings
+import guiTools,settings,gui
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -88,6 +88,10 @@ class Play(qt.QDialog):
         gotochannel=qt1.QAction(_("go to channel"),self)
         video.addAction(gotochannel)
         gotochannel.triggered.connect(self.on_go_to_channel)
+        self.favorite=qt1.QAction(_("favorite"),self)
+        video.addAction(self.favorite)
+        self.favorite.setCheckable(True)
+        self.favorite.triggered.connect(lambda:self.on_favorite(1))
         layout.setMenuBar(menuBar)
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_play_pause(self):
@@ -101,6 +105,7 @@ class Play(qt.QDialog):
     def on_finish_loading(self,r):
         self.video=r
         self.setWindowTitle(self.video.title)
+        self.favorite.setChecked(self.on_favorite(0))
     def on_url(self,url):
         self.url=url
         self.media.setSource(qt2.QUrl(self.url))
@@ -131,3 +136,17 @@ class Play(qt.QDialog):
     def on_go_to_channel(self):
         self.media.pause()
         channel.OpenChannel(self,self.video.channel_id).exec()
+    def on_favorite(self,index):
+        text=self.video.title + _("by") + self.video.author
+        data=gui.favorite.favoriteJsonControl.get("videos")
+        if index==0:
+            if data.get(text):
+                return True
+            else:
+                return False
+        else:
+            if data.get(text):
+                del(data[text])
+            else:
+                data[text]={"url":self.video.watch_url,"position":0}
+            gui.favorite.favoriteJsonControl.save("videos",data)
