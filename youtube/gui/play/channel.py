@@ -48,37 +48,53 @@ class ChannelInfo(qt.QWidget):
         layout.addWidget(self.info)
 class ChannelObjects(qt2.QObject):
     finish=qt2.pyqtSignal(dict,int)
+    exit=qt2.pyqtSignal(bool)
 class channelThread(qt2.QRunnable):
     def __init__(self,channelURL):
         super().__init__()
         self.objects=ChannelObjects()
+        self.objects.exit.connect(self.on_exit_change)
+        self.is_exit=False
         self.channelURL=channelURL
+    def on_exit_change(self,state):
+        self.is_exit=state
     def run(self):
         guiTools.speak(_("loading"))
         self.objects.finish.emit(Channel.get(self.channelURL),0)
         self.videos={}
         plv=Playlist(playlist_from_channel_id(self.channelURL))
-        while plv.hasMoreVideos:
-            plv.getNextVideos()
         for video in plv.videos:
             self.videos[video["title"]]=video["link"]
         self.objects.finish.emit(self.videos,1)
         playlists={}
         channelplaylist=Channel(self.channelURL)
-        """
-        while channelplaylist.has_more_playlists:
-            channelplaylist.next()
-        """
         for pl in channelplaylist.result["playlists"]:
             playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
         self.objects.finish.emit(playlists,2)
-
+        while True:
+            if not self.is_exit:
+                if plv.hasMoreVideos:
+                    plv.getNextVideos()
+                    self.videos={}
+                    for video in plv.videos:
+                        self.videos[video["title"]]=video["link"]
+                    self.objects.finish.emit(self.videos,1)
+                if channelplaylist.has_more_playlists:
+                    channelplaylist.next()
+                    playlists={}
+                    for pl in channelplaylist.result["playlists"]:
+                        playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
+                    self.objects.finish.emit(playlists,2)
+                if not plv.hasMoreVideos and channelplaylist.has_more_playlists:
+                    break
+            else:
+                break
 class OpenChannel(qt.QDialog):
     def __init__(self,p,channelURL):
         super().__init__(p)
-        thread=channelThread(channelURL)
-        thread.objects.finish.connect(self.on_finish_loading)
-        qt2.QThreadPool(self).start(thread)
+        self.thread=channelThread(channelURL)
+        self.thread.objects.finish.connect(self.on_finish_loading)
+        qt2.QThreadPool(self).start(self.thread)
         self.channel=None
         self.videos={}
         layout=qt.QVBoxLayout(self)
@@ -91,6 +107,7 @@ class OpenChannel(qt.QDialog):
         self.tab.addTab(self.playlist,_("playlists"))
         self.playlists={}
         layout.addWidget(self.tab)
+        qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_finish_loading(self,result,index):
         if index==0:
             self.channel=result
@@ -107,3 +124,6 @@ class OpenChannel(qt.QDialog):
             self.playlists=result
             self.playlist.playlistBox.addItems(self.playlists)
             guiTools.speak(_("playlists loaded"))
+    def closeEvent(self,event):
+        self.thread.objects.exit.emit(True)
+        self.close()

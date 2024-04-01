@@ -1,4 +1,5 @@
 from .comments import ViewComments
+from . import channel
 import guiTools,settings
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -84,6 +85,9 @@ class Play(qt.QDialog):
         comments=qt1.QAction(_("comments"),self)
         video.addAction(comments)
         comments.triggered.connect(lambda:self.on_comments(videoURL))
+        gotochannel=qt1.QAction(_("go to channel"),self)
+        video.addAction(gotochannel)
+        gotochannel.triggered.connect(self.on_go_to_channel)
         layout.setMenuBar(menuBar)
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_play_pause(self):
@@ -124,3 +128,6 @@ class Play(qt.QDialog):
                 self.media.setPlaybackRate(state + 0.1)
             else:
                 self.media.setPlaybackRate(1.0)
+    def on_go_to_channel(self):
+        self.media.pause()
+        channel.OpenChannel(self,self.video.channel_id).exec()

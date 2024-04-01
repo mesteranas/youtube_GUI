@@ -36,9 +36,12 @@ class PlayPlayList(qt.QDialog):
         self.play=qt.QPushButton(_("play"))
         self.play.clicked.connect(lambda:gui.play.Play(self,self.videos[self.playlistBox.currentItem().text()],0).exec())
         layout.addWidget(self.play)
+        self.goToChannel=qt.QPushButton(_("go to channel"))
+        layout.addWidget(self.goToChannel)
     def on_finish_loading(self,r,pl):
         self.setWindowTitle(pl.title)
         self.description.setText(pl.description)
+        self.goToChannel.clicked.connect(lambda:gui.play.OpenChannel(self,pl.owner_id).exec())
         self.videos=r
         self.playlistBox.addItems(self.videos.keys())
         self.playlistBox.setFocus()
