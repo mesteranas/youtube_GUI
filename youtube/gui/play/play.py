@@ -36,6 +36,8 @@ class Play(qt.QDialog):
         thread.objects.url.connect(self.on_url)
         qt2.QThreadPool(self).start(thread)
         self.media=QMediaPlayer(self)
+        self.position=0
+        self.media.positionChanged.connect(self.on_position_changed)
         layout=qt.QVBoxLayout(self)
         self.videoWidget=QVideoWidget()
         self.media.setVideoOutput(self.videoWidget)
@@ -100,6 +102,7 @@ class Play(qt.QDialog):
         else:
             self.media.play()
     def closeEvent(self,event):
+        gui.history.historyJsonControl.save(self.video.title + _("by") + self.video.author,self.position,self.video.watch_url)
         self.media.stop()
         self.close()
     def on_finish_loading(self,r):
@@ -111,6 +114,8 @@ class Play(qt.QDialog):
         self.media.setSource(qt2.QUrl(self.url))
         self.media.play()
         guiTools.speak(_("loaded"))
+        state,position,url=gui.history.historyJsonControl.get(self.video.title + _("by") + self.video.author)
+        if state: self.media.setPosition(position)
     def on_description(self):
         self.media.pause()
         guiTools.TextViewer(self,_("description"),self.video.description).exec()
@@ -150,3 +155,7 @@ class Play(qt.QDialog):
             else:
                 data[text]={"url":self.video.watch_url,"position":0}
             gui.favorite.favoriteJsonControl.save("videos",data)
+    def on_position_changed(self,position):
+        if position==0:
+            return
+        self.position=position
