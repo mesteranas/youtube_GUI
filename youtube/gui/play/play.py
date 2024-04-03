@@ -94,6 +94,9 @@ class Play(qt.QDialog):
         video.addAction(self.favorite)
         self.favorite.setCheckable(True)
         self.favorite.triggered.connect(lambda:self.on_favorite(1))
+        download=qt1.QAction(_("download"),self)
+        video.addAction(download)
+        download.triggered.connect(self.on_download)
         layout.setMenuBar(menuBar)
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_play_pause(self):
@@ -159,3 +162,6 @@ class Play(qt.QDialog):
         if position==0:
             return
         self.position=position
+    def on_download(self):
+        self.media.pause()
+        gui.download.DownloadGUI(self,self.video.watch_url).exec()
