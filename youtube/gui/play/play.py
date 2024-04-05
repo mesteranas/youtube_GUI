@@ -94,9 +94,13 @@ class Play(qt.QDialog):
         video.addAction(self.favorite)
         self.favorite.setCheckable(True)
         self.favorite.triggered.connect(lambda:self.on_favorite(1))
-        download=qt1.QAction(_("download"),self)
-        video.addAction(download)
-        download.triggered.connect(self.on_download)
+        download=video.addMenu(_("download"))
+        downloadVideo=qt1.QAction(_("video"),self)
+        download.addAction(downloadVideo)
+        downloadVideo.triggered.connect(self.on_download)
+        downloadSubtitles=qt1.QAction(_("subtitles"),self)
+        download.addAction(downloadSubtitles)
+        downloadSubtitles.triggered.connect(self.on_download_subtitles)
         layout.setMenuBar(menuBar)
         qt1.QShortcut("escape",self).activated.connect(lambda:self.closeEvent(None))
     def on_play_pause(self):
@@ -165,3 +169,6 @@ class Play(qt.QDialog):
     def on_download(self):
         self.media.pause()
         gui.download.DownloadGUI(self,self.video.watch_url).exec()
+    def on_download_subtitles(self):
+        self.media.pause()
+        gui.download.DownloadSubtitles(self,self.video.video_id).exec()
