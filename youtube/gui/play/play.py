@@ -30,6 +30,7 @@ class PlayThread(qt2.QRunnable):
 class Play(qt.QDialog):
     def __init__(self,p,videoURL,type):
         super().__init__(p)
+        self.showFullScreen()
         self.video=None
         thread=PlayThread(videoURL,type)
         thread.objects.finish.connect(self.on_finish_loading)
@@ -119,10 +120,11 @@ class Play(qt.QDialog):
     def on_url(self,url):
         self.url=url
         self.media.setSource(qt2.QUrl(self.url))
-        self.media.play()
         guiTools.speak(_("loaded"))
         state,position,url=gui.history.historyJsonControl.get(self.video.title + _("by") + self.video.author)
         if state: self.media.setPosition(position)
+        self.media.play()
+
     def on_description(self):
         self.media.pause()
         guiTools.TextViewer(self,_("description"),self.video.description).exec()

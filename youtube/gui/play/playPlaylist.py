@@ -20,6 +20,7 @@ class PlaylistThread(qt2.QRunnable):
 class PlayPlayList(qt.QDialog):
     def __init__(self,p,PlaylistUrl):
         super().__init__(p)
+        self.showFullScreen()
         self.playlistDict={}
         self.videos={}
         thread=PlaylistThread(PlaylistUrl)

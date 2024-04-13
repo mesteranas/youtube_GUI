@@ -1,0 +1,605 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-04-11 20:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp1252\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:10
+msgid "exit {} dialog"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:12
+msgid "what woud you like to do?"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:16
+msgid "exit"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:16
+msgid "restart"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:17
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:19
+msgid "OK"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\exitApp.py:19
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:23
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:68
+#: D:\programming\projects\python\GUI\youtube\update\updater.py:71
+msgid "cancel"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\openLink.py:11
+msgid "Open link dialog"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\openLink.py:12
+#: D:\programming\projects\python\GUI\youtube\guiTools\openLink.py:16
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:10
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:12
+msgid "link"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\openLink.py:17
+msgid "open link "
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\guiTools\openLink.py:19
+msgid "copy link"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:15
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:62
+#: D:\programming\projects\python\GUI\youtube\gui\play\comments.py:14
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:20
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:14
+msgid "loading"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:23
+msgid " download video"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:31
+msgid "folder path"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:33
+msgid "select folder"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:37
+msgid "select quality"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:39
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:97
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:31
+msgid "download"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\download.py:51
+#: D:\programming\projects\python\GUI\youtube\gui\play\comments.py:47
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:122
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:55
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:60
+msgid "loaded"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:11
+msgid "path"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:14
+msgid "select"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:17
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:20
+msgid "save as"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:19
+msgid "text"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:22
+msgid "get"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:48
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloader.py:54
+msgid "done"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:48
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloader.py:54
+msgid "downloaded"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:51
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloader.py:56
+msgid "please try later"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloadSubtitles.py:51
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloader.py:56
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:61
+#: D:\programming\projects\python\GUI\youtube\gui\play\comments.py:44
+#: D:\programming\projects\python\GUI\youtube\settings\licence.py:10
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:20
+msgid "error"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\download\downloader.py:43
+msgid "downloading"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:9
+#: D:\programming\projects\python\GUI\youtube\main.py:25
+msgid "favorites"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:13
+msgid "channels"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:13
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:105
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:33
+msgid "videos"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:13
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:107
+msgid "playlists"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:17
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:8
+#: D:\programming\projects\python\GUI\youtube\main.py:21
+msgid "open"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:20
+msgid "delete"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:39
+#: D:\programming\projects\python\GUI\youtube\gui\history\historyGUI.py:25
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:17
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:31
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:83
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:98
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:59
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:65
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:16
+msgid "video"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:42
+#: D:\programming\projects\python\GUI\youtube\gui\history\historyGUI.py:28
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:34
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:62
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:68
+msgid "audio"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\favorite\favoriteGUI.py:59
+msgid "deleted"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\history\historyGUI.py:10
+#: D:\programming\projects\python\GUI\youtube\main.py:29
+msgid "history"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\history\historyGUI.py:20
+msgid "open video"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:14
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:16
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:15
+msgid "type"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:17
+msgid "playlist"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:20
+msgid "video actions"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\open.py:24
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:13
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:49
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:72
+msgid "open playlist"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:27
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:37
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:58
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:45
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:64
+msgid "play"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:32
+msgid "play as video"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:35
+msgid "play as audio"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:103
+msgid "information"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:110
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:93
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:40
+msgid "favorite"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:123
+msgid "information loaded"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:127
+msgid "videos loaded"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\channel.py:132
+msgid "playlists loaded"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\comments.py:23
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:87
+msgid "comments"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\comments.py:31
+msgid "comment text"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:48
+msgid "player"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:49
+msgid "play / pause"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:53
+msgid "fast forward"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:57
+msgid "rewind"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:61
+msgid "volume"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:62
+msgid "volume up"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:66
+msgid "volume down"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:70
+msgid "rate"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:71
+msgid "increase"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:75
+msgid "decrease"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:79
+msgid "normal"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:84
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:129
+msgid "description"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:90
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:43
+msgid "go to channel"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:101
+msgid "subtitles"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:112
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:123
+#: D:\programming\projects\python\GUI\youtube\gui\play\play.py:153
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:70
+msgid "by"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\play\playPlaylist.py:65
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:79
+msgid "open or copy url"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:16
+msgid "searching"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:31
+msgid "search results"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:38
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:40
+msgid "results"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:53
+#: D:\programming\projects\python\GUI\youtube\gui\search\results.py:76
+msgid "open channel"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:8
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:10
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:12
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:18
+#: D:\programming\projects\python\GUI\youtube\main.py:17
+msgid "search"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:16
+msgid "channel"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:16
+msgid "play list"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\gui\search\search.py:21
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:33
+msgid "close"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:15
+msgid "version : "
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:33
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:15
+msgid "settings"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:42
+msgid "help"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:43
+msgid "help file"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:47
+msgid "contact us"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:51
+msgid "telegram channel"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:54
+msgid "Github"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:57
+msgid "x"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:60
+msgid "email"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:63
+msgid "visite project on Github"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:66
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\update.py:22
+msgid "check for update"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:69
+#: D:\programming\projects\python\GUI\youtube\settings\licence.py:8
+msgid "license"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:72
+msgid "donate"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:75
+#: D:\programming\projects\python\GUI\youtube\main.py:77
+msgid "about"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\main.py:77
+msgid "{} version: {} description: {} developer: {}"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\licence.py:10
+msgid "server error"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:17
+msgid "select sectian"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:21
+msgid "default"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:26
+msgid "general"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:27
+msgid "update"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:29
+msgid "play settings"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:31
+msgid "Backup and restoar"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:47
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:39
+msgid "settings updated"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:48
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:40
+msgid ""
+"you must restart the program to apply changes \n"
+" do you want to restart now?"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:50
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:42
+msgid "restart now"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:52
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:44
+msgid "restart later"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:63
+msgid "alert"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:64
+msgid ""
+"do you wanna reset your settings ? \n"
+" if you click reset , the program will restart to complete reset."
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\settings.py:66
+msgid "reset and restart"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:16
+msgid "backup"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\backupAndRestoart.py:19
+msgid "restoar"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\genral.py:15
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\genral.py:17
+msgid "language"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\genral.py:24
+msgid "Show exit dialog when exiting the program"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\play.py:17
+msgid "hi quality"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\play.py:17
+msgid "low quality"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\play.py:19
+msgid "video quality"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\update.py:16
+msgid "Automatically check for update when program start"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\settings\tabs\update.py:19
+msgid "download beta updates"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:14
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:18
+msgid "info"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:14
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:18
+msgid "no updates fownd"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:20
+msgid "server error please try later"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:25
+msgid "new {} version {}"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\checkForUpdate.py:28
+msgid "what's new"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\updater.py:62
+msgid "updating"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\updater.py:64
+msgid "downloading update please wait"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\updater.py:68
+msgid "download state"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\youtube\update\updater.py:82
+msgid "installing"
+msgstr ""
+

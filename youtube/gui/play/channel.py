@@ -92,6 +92,7 @@ class channelThread(qt2.QRunnable):
 class OpenChannel(qt.QDialog):
     def __init__(self,p,channelURL):
         super().__init__(p)
+        self.showFullScreen()
         self.thread=channelThread(channelURL)
         self.thread.objects.finish.connect(self.on_finish_loading)
         qt2.QThreadPool(self).start(self.thread)
