@@ -1,10 +1,10 @@
 import guiTools,gui
-from pytube import Playlist
+from youtubesearchpython import Playlist
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class PlaylistObjects(qt2.QObject):
-    finish=qt2.pyqtSignal(dict,Playlist)
+    finish=qt2.pyqtSignal(dict,dict)
 class PlaylistThread(qt2.QRunnable):
     def __init__(self,playlistURL):
         super().__init__()
@@ -14,9 +14,11 @@ class PlaylistThread(qt2.QRunnable):
         guiTools.speak(_("loading"))
         self.videos={}
         playlistSearch=Playlist(self.playList)
+        while playlistSearch.hasMoreVideos:
+            playlistSearch.getNextVideos()
         for video in playlistSearch.videos:
-            self.videos[video.title]=video.watch_url
-        self.objects.finish.emit(self.videos,playlistSearch)
+            self.videos[video["title"]]=video["link"]
+        self.objects.finish.emit(self.videos,playlistSearch.get(self.playList))
 class PlayPlayList(qt.QDialog):
     def __init__(self,p,PlaylistUrl):
         super().__init__(p)
@@ -44,12 +46,12 @@ class PlayPlayList(qt.QDialog):
         self.goToChannel=qt.QPushButton(_("go to channel"))
         layout.addWidget(self.goToChannel)
     def on_finish_loading(self,r,pl):
-        self.setWindowTitle(pl.title)
-        self.description.setText(pl.description)
+        self.setWindowTitle(pl["info"]["title"])
+        # self.description.setText(pl["info"]["description"])
         self.playlistDict=pl
         self.favorite.setChecked(self.on_favorite(0))
         self.favorite.toggled.connect(lambda:self.on_favorite(1))
-        self.goToChannel.clicked.connect(lambda:gui.play.OpenChannel(self,pl.owner_id).exec())
+        self.goToChannel.clicked.connect(lambda:gui.play.OpenChannel(self,pl["info"]["channel"]["id"]).exec())
         self.videos=r
         self.playlistBox.addItems(self.videos.keys())
         self.playlistBox.setFocus()
@@ -68,7 +70,7 @@ class PlayPlayList(qt.QDialog):
         openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.results.currentItem().text()]))
         menu.exec()
     def on_favorite(self,index):
-        text=self.playlistDict.title + _("by") + self.playlistDict.owner
+        text=self.playlistDict["info"]["title"]+ _("by") + self.playlistDict["info"]["channel"]["name"]
         data=gui.favorite.favoriteJsonControl.get("playlists")
         if index==0:
             if data.get(text):
@@ -79,5 +81,5 @@ class PlayPlayList(qt.QDialog):
             if data.get(text):
                 del(data[text])
             else:
-                data[text]={"url":"https://www.youtube.com/playlist?list="+self.playlistDict.playlist_id}
+                data[text]={"url":"https://www.youtube.com/playlist?list="+self.playlistDict["info"]["id"]}
             gui.favorite.favoriteJsonControl.save("playlists",data)
