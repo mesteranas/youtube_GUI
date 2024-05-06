@@ -1,8 +1,8 @@
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
-from youtubesearchpython import Comments
-import guiTools
+import requests
+import guiTools,settings
 class CommentsObjects(qt2.QObject):
     finish=qt2.pyqtSignal(dict)
 class CommentsThread(qt2.QRunnable):
@@ -13,8 +13,38 @@ class CommentsThread(qt2.QRunnable):
     def run(self):
         guiTools.speak(_("loading"))
         self.comments={}
-        for comment in Comments(self.url).comments['result']:
-            self.comments["{} by {}".format(comment['content'],comment['author']['name'])]=comment['content']
+        try:
+            base_url = "https://www.googleapis.com/youtube/v3/commentThreads"
+            params = {
+                "part": "snippet",
+                "videoId": self.url,
+                "key": settings.app.apiKey,
+                "maxResults": 100,  # You can adjust this value based on your needs
+            }
+            all_comments = []
+            next_page_token = None
+            while True:
+                if next_page_token:
+                    params["pageToken"] = next_page_token
+                response = requests.get(base_url, params=params)
+                if response.status_code == 200:
+                    data = response.json()
+                    comments = data.get("items", [])
+                    all_comments.extend(comments)
+                    next_page_token = data.get("nextPageToken")
+                    if not next_page_token:
+                        break
+                else:
+                    self.comments={}
+                    break
+            if all_comments:
+                for comment in all_comments:
+                    snippet = comment["snippet"]["topLevelComment"]["snippet"]
+                    author = snippet["authorDisplayName"]
+                    text = snippet["textDisplay"]
+                    self.comments[_("{} by {}").format(text,author)]=text
+        except:
+            self.comments={}
         self.objects.finish.emit(self.comments)
 
 class ViewComments(qt.QDialog):

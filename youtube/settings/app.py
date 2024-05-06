@@ -1,3 +1,4 @@
+apiKey=""
 name="youtube"
 appName="youtube_GUI"
 appdirname="youtube"

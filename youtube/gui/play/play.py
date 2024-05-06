@@ -87,7 +87,7 @@ class Play(qt.QDialog):
         description.triggered.connect(self.on_description)
         comments=qt1.QAction(_("comments"),self)
         video.addAction(comments)
-        comments.triggered.connect(lambda:self.on_comments(videoURL))
+        comments.triggered.connect(lambda:self.on_comments(self.video.video_id))
         gotochannel=qt1.QAction(_("go to channel"),self)
         video.addAction(gotochannel)
         gotochannel.triggered.connect(self.on_go_to_channel)

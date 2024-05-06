@@ -67,7 +67,7 @@ class PlayPlayList(qt.QDialog):
         audio.triggered.connect(lambda:gui.play.Play(self,self.videos[self.playlistBox.currentItem().text()],1).exec())
         openorcopyurl=qt1.QAction(_("open or copy url"),self)
         menu.addAction(openorcopyurl)
-        openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.results.currentItem().text()]))
+        openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.playlistBox.currentItem().text()]))
         menu.exec()
     def on_favorite(self,index):
         text=self.playlistDict["info"]["title"]+ _("by") + self.playlistDict["info"]["channel"]["name"]
