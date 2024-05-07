@@ -7,6 +7,7 @@ class FavoritGUI(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.setWindowTitle(_("favorites"))
+        self.showFullScreen()
         self.dictionary={}
         layout=qt.QVBoxLayout(self)
         self.type=qt.QComboBox()

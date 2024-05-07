@@ -13,6 +13,7 @@ class main (qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(app.name + _("version : ") + str(app.version))
+        self.showFullScreen()
         layout=qt.QVBoxLayout()
         self.search=qt.QPushButton(_("search"))
         self.search.setDefault(True)

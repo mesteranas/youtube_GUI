@@ -6,6 +6,7 @@ class Open(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.setWindowTitle(_("open"))
+        self.showFullScreen()
         layout=qt.QVBoxLayout(self)
         layout.addWidget(qt.QLabel(_("link")))
         self.link=qt.QLineEdit()

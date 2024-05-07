@@ -41,6 +41,7 @@ class DownloaderGUI(qt.QDialog):
         thread.objects.finish.connect(self.on_finish)
         qt2.QThreadPool(self).start(thread)
         self.setWindowTitle(_("downloading"))
+        self.showFullScreen()
         self.progressBar=qt.QProgressBar()
         self.progressBar.setRange(0,100)
         self.progressBar.setValue(0)

@@ -22,6 +22,7 @@ class DownloadGUI(qt.QDialog):
     def __init__(self,p,url):
         super().__init__(p)
         self.setWindowTitle(_(" download video"))
+        self.showFullScreen()
         self.videoQuality={}
         thread=DownloadThread(url)
         thread.objects.finish.connect(self.on_finish_loading)

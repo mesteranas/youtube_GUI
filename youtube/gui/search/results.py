@@ -51,6 +51,7 @@ class Results(qt.QDialog):
     def __init__(self,p,text,type):
         super().__init__(p)
         self.setWindowTitle(_("search results"))
+        self.showFullScreen()
         self.videos={}
         self.type=type
         self.thread=resultsThread(text,type)

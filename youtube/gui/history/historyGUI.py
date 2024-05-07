@@ -8,6 +8,7 @@ class HistoryGUI(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.setWindowTitle(_("history"))
+        self.showFullScreen()
         self.videos={}
         for key,valu in json.load(open(historyJsonControl.path,"r",encoding="utf-8")).items():
             self.videos[key]=valu["url"]

@@ -51,6 +51,7 @@ class ViewComments(qt.QDialog):
     def __init__(self,p,videoURL):
         super().__init__(p)
         self.setWindowTitle(_("comments"))
+        self.showFullScreen()
         self.comments={}
         thread=CommentsThread(videoURL)
         thread.objects.finish.connect(self.on_thread_finish)

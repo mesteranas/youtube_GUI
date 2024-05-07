@@ -6,6 +6,7 @@ import PyQt6.QtCore as qt2
 class DownloadSubtitles(qt.QDialog):
     def __init__(self,p,VideoId):
         super().__init__(p)
+        self.showFullScreen()
         layout=qt.QVBoxLayout(self)
         self.path=qt.QLineEdit()
         self.path.setAccessibleName(_("path"))

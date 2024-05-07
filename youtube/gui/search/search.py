@@ -6,6 +6,7 @@ class Search(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.setWindowTitle(_("search"))
+        self.showFullScreen()
         layout=qt.QVBoxLayout(self)
         layout.addWidget(qt.QLabel(_("search")))
         self.searchBox=qt.QLineEdit()
