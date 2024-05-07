@@ -12,18 +12,40 @@ class resultsThread(qt2.QRunnable):
         self.text=text
         self.type=type
         self.objects=resultsObjects()
+        self.search=None
+    def getNextResults(self):
+        videos={}
+        self.search.next()
+        for video in self.search.result()["result"]:
+            try:
+                views=video['viewCount']['short']
+            except:
+                views=""
+            try:
+                auther=video['channel']['name']
+            except:
+                auther=""
+            videos["{} by {} {} ".format(video['title'],auther,views)]=video['link']
+        self.objects.finish.emit(videos)
     def run(self):
         guiTools.speak(_("searching"))
         videos={}
         if self.type==0:
-            for video in VideosSearch(self.text).result()["result"]:
-                videos["{} by {} {} ".format(video['title'],video['channel']['name'],video['viewCount']['short'])]=video['link']
+            self.search=VideosSearch(self.text)
         elif self.type==1:
-            for video in PlaylistsSearch(self.text).result()["result"]:
-                videos["{} by {}".format(video['title'],video['channel']['name'])]=f"https://www.youtube.com/playlist?list={video['id']}"
+            self.search=PlaylistsSearch(self.text)
         elif self.type==2:
-            for channel in ChannelsSearch(self.text).result()["result"]:
-                videos[channel["title"]]=channel["id"]
+            self.search=ChannelsSearch(self.text)
+        for video in self.search.result()["result"]:
+            try:
+                views=video['viewCount']['short']
+            except:
+                views=""
+            try:
+                auther=video['channel']['name']
+            except:
+                auther=""
+            videos["{} by {} {} ".format(video['title'],auther,views)]=video['link']
         self.objects.finish.emit(videos)
 class Results(qt.QDialog):
     def __init__(self,p,text,type):
@@ -31,15 +53,16 @@ class Results(qt.QDialog):
         self.setWindowTitle(_("search results"))
         self.videos={}
         self.type=type
-        thread=resultsThread(text,type)
-        thread.objects.finish.connect(self.finishLoading)
-        qt2.QThreadPool(self).start(thread)
+        self.thread=resultsThread(text,type)
+        self.thread.objects.finish.connect(self.finishLoading)
+        qt2.QThreadPool(self).start(self.thread)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(qt.QLabel(_("results")))
         self.results=qt.QListWidget()
         self.results.setAccessibleName(_("results"))
         self.results.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.results.customContextMenuRequested.connect(self.on_context)
+        self.results.currentRowChanged.connect(self.indexChanged)
         layout.addWidget(self.results)
         if self.type==0:
             self.play=qt.QPushButton(_("play"))
@@ -54,9 +77,12 @@ class Results(qt.QDialog):
             self.openChannel.clicked.connect(lambda:gui.play.OpenChannel(self,self.videos[self.results.currentItem().text()]).exec())
             layout.addWidget(self.openChannel)
     def finishLoading(self,r):
+        index=self.results.currentIndex()
+        # self.results.clear()
         self.videos=r
         self.results.addItems(self.videos.keys())
         self.results.setFocus()
+        self.results.setCurrentIndex(index)
         guiTools.speak(_("loaded"))
     def on_context(self):
         menu=qt.QMenu(self)
@@ -80,3 +106,7 @@ class Results(qt.QDialog):
         menu.addAction(openorcopyurl)
         openorcopyurl.triggered.connect(lambda:guiTools.OpenLink(self,self.videos[self.results.currentItem().text()]))
         menu.exec()
+    def indexChanged(self,index):
+        if index==self.results.count()-1:
+            guiTools.speak(_("loading"))
+            self.thread.getNextResults()
