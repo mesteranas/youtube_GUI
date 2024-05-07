@@ -26,7 +26,7 @@ class settings (qt.QDialog):
         self.sectian.add(_("general"),self.layout1)
         self.sectian.add(_("update"),self.update)
         self.play=tabs.PlaySettings(self)
-        self.sectian.add(_("play settings"),self.play)
+        # self.sectian.add(_("play settings"),self.play)
         restoar=tabs.Restoar(self)
         self.sectian.add(_("Backup and restoar"),restoar)
         layout.addWidget(self.ok)

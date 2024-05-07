@@ -7,6 +7,7 @@ import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from pytube import YouTube
+import pafy
 class PlayObjects(qt2.QObject):
     finish=qt2.pyqtSignal(YouTube)
     url=qt2.pyqtSignal(str)
@@ -20,13 +21,11 @@ class PlayThread(qt2.QRunnable):
         guiTools.speak(_("loading"))
         self.video=YouTube(self.url)
         self.objects.finish.emit(self.video)
+        self.stream=pafy.new(self.url)
         if self.type==0:
-            if settings.settings_handler.get("play","quality")=="0":
-                self.objects.url.emit(self.video.streams.get_highest_resolution().url)
-            else:
-                self.objects.url.emit(self.video.streams.get_lowest_resolution().url)
+            self.objects.url.emit(self.stream.getbest().url)
         else:
-            self.objects.url.emit(self.video.streams.filter(only_audio=True).first().url)
+            self.objects.url.emit(self.stream.getbestaudio().url)
 class Play(qt.QDialog):
     def __init__(self,p,videoURL,type):
         super().__init__(p)

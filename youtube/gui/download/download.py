@@ -3,7 +3,7 @@ import guiTools
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
-from pytube import YouTube
+import pafy
 class DownloadObjects(qt2.QObject):
     finish=qt2.pyqtSignal(dict)
 class DownloadThread(qt2.QRunnable):
@@ -14,8 +14,9 @@ class DownloadThread(qt2.QRunnable):
     def run(self):
         guiTools.speak(_("loading"))
         downloadDict={}
-        for video in YouTube(url=self.url).streams.all():
-            downloadDict["quality: {} type: {}".format(video.resolution,video.type)]=[video.default_filename,video.url]
+        vid=pafy.new(self.url)
+        for video in vid.streams:
+            downloadDict["quality: {} type: {} extension : {}".format(video.resolution, _('video') if video.resolution else _('audio'),video.extension)]=[vid.title + "." + video.extension if video.extension else vid.title,video.url]
         self.objects.finish.emit(downloadDict)
 class DownloadGUI(qt.QDialog):
     def __init__(self,p,url):
