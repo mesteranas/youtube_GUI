@@ -60,33 +60,51 @@ class channelThread(qt2.QRunnable):
         self.is_exit=state
     def run(self):
         guiTools.speak(_("loading"))
-        self.objects.finish.emit(Channel.get(self.channelURL),0)
+        try:
+            self.objects.finish.emit(Channel.get(self.channelURL),0)
+        except:
+            guiTools.speak(_("can't load channel information"))
         self.videos={}
-        plv=Playlist(playlist_from_channel_id(self.channelURL))
-        for video in plv.videos:
-            self.videos[video["title"]]=video["link"]
-        self.objects.finish.emit(self.videos,1)
-        playlists={}
-        channelplaylist=Channel(self.channelURL)
-        for pl in channelplaylist.result["playlists"]:
-            playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
-        self.objects.finish.emit(playlists,2)
+        try:
+            plv=Playlist(playlist_from_channel_id(self.channelURL))
+            for video in plv.videos:
+                self.videos[video["title"]]=video["link"]
+            self.objects.finish.emit(self.videos,1)
+        except:
+            guiTools.speak(_("can't load channel videos"))
+        try:
+            playlists={}
+            channelplaylist=Channel(self.channelURL)
+            for pl in channelplaylist.result["playlists"]:
+                playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
+            self.objects.finish.emit(playlists,2)
+        except:
+            guiTools.speak(_("can't load channel playlists"))
         while True:
             if not self.is_exit:
-                if plv.hasMoreVideos:
-                    plv.getNextVideos()
-                    self.videos={}
-                    for video in plv.videos:
-                        self.videos[video["title"]]=video["link"]
-                    self.objects.finish.emit(self.videos,1)
-                if channelplaylist.has_more_playlists:
-                    channelplaylist.next()
-                    playlists={}
-                    for pl in channelplaylist.result["playlists"]:
-                        playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
-                    self.objects.finish.emit(playlists,2)
-                if not plv.hasMoreVideos and channelplaylist.has_more_playlists:
-                    break
+                try:
+                    if plv.hasMoreVideos:
+                        plv.getNextVideos()
+                        self.videos={}
+                        for video in plv.videos:
+                            self.videos[video["title"]]=video["link"]
+                        self.objects.finish.emit(self.videos,1)
+                except:
+                    pass
+                try:
+                    if channelplaylist.has_more_playlists:
+                        channelplaylist.next()
+                        playlists={}
+                        for pl in channelplaylist.result["playlists"]:
+                            playlists[pl["title"]]="https://www.youtube.com/playlist?list=" + pl["id"]
+                        self.objects.finish.emit(playlists,2)
+                except:
+                    pass
+                try:
+                    if not plv.hasMoreVideos and channelplaylist.has_more_playlists:
+                        break
+                except:
+                    pass
             else:
                 break
 class OpenChannel(qt.QDialog):

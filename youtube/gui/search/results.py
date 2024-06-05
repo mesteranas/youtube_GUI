@@ -75,7 +75,7 @@ class Results(qt.QDialog):
             layout.addWidget(self.openPlaylist)
         elif self.type==2:
             self.openChannel=qt.QPushButton(_("open channel"))
-            self.openChannel.clicked.connect(lambda:gui.play.OpenChannel(self,self.videos[self.results.currentItem().text()]).exec())
+            self.openChannel.clicked.connect(lambda:gui.play.OpenChannel(self,self.videos[self.results.currentItem().text()].split("/")[-1]).exec())
             layout.addWidget(self.openChannel)
     def finishLoading(self,r):
         index=self.results.currentIndex()
