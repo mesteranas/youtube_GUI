@@ -13,8 +13,8 @@ class resultsThread(qt2.QRunnable):
         self.type=type
         self.objects=resultsObjects()
         self.search=None
-    def getNextResults(self):
-        videos={}
+    def getNextResults(self,currentResults):
+        videos=currentResults
         self.search.next()
         for video in self.search.result()["result"]:
             try:
@@ -79,9 +79,9 @@ class Results(qt.QDialog):
             layout.addWidget(self.openChannel)
     def finishLoading(self,r):
         index=self.results.currentIndex()
-        # self.results.clear()
+        self.results.clear()
         self.videos=r
-        self.results.addItems(self.videos.keys())
+        self.results.addItems(r.keys())
         self.results.setFocus()
         self.results.setCurrentIndex(index)
         guiTools.speak(_("loaded"))
@@ -110,4 +110,4 @@ class Results(qt.QDialog):
     def indexChanged(self,index):
         if index==self.results.count()-1:
             guiTools.speak(_("loading"))
-            self.thread.getNextResults()
+            self.thread.getNextResults(self.videos)
