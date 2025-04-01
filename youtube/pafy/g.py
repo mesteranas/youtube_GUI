@@ -21,7 +21,7 @@ urls = {
                 'eurl=https://youtube.googleapis.com/v/%s&sts=%s'),
     'embed': "https://youtube.com/embed/%s"
 }
-api_key = "AIzaSyCIM4EzNqi1in22f4Z3Ru3iYvLaY8tc3bo"
+api_key = "AIzaSyBpQv4nbjxsx9dSUcC7b8SVTGAaSSiRwnw"
 user_agent = "pafy " + __version__
 lifespan = 60 * 60 * 5  # 5 hours
 opener = build_opener()

@@ -1,4 +1,4 @@
-apiKey=""
+apiKey="AIzaSyBpQv4nbjxsx9dSUcC7b8SVTGAaSSiRwnw"
 name="youtube"
 appName="youtube_GUI"
 appdirname="youtube"

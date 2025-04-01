@@ -48,7 +48,10 @@ class YtdlPafy(BasePafy):
         self._title = self._ydl_info['title']
         self._author = self._ydl_info['uploader']
         self._rating = self._ydl_info['average_rating']
-        self._length = self._ydl_info['duration']
+        try:
+            self._length = self._ydl_info['duration']
+        except:
+            self._length = 0
         self._viewcount = self._ydl_info.get('view_count', 0)
         self._likes = self._ydl_info.get('like_count', 0)
         self._dislikes = self._ydl_info.get('dislike_count', 0)

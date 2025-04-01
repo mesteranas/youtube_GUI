@@ -26,7 +26,7 @@ class DownloaderThread(qt2.QRunnable):
                 return
             recieved=0
             progress=0
-            with open(os.path.join(self.path,self.fun[0]),"wb") as file:
+            with open(os.path.join(self.path,"a.mp4"),"wb") as file:
                 for bart in r.iter_content(1024):
                     file.write(bart)
                     recieved+=len(bart)
